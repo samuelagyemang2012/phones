@@ -41,7 +41,7 @@
                         <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
                         <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
                         <li><a href="cart.php"><i class="fa fa-user"></i> My Cart</a></li>
-                        <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
+                        <li><a href="checkout.php"><i class="fa fa-user"></i> Checkout</a></li>
                         <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
                     </ul>
                 </div>
@@ -114,7 +114,7 @@
                     {#<li><a href="index.twig">Shop page</a></li>#}
                     {#<li><a href="single-product.twig">Single product</a></li>#}
                     {#<li class="active"><a href="cart.h">Cart</a></li>#}
-                    {#<li><a href="checkout.html">Checkout</a></li>#}
+                    {#<li><a href="checkout.twig">Checkout</a></li>#}
                     {#<li><a href="#">Category</a></li>#}
                     {#<li><a href="#">Others</a></li>#}
                     {#<li><a href="#">Contact</a></li>#}
@@ -234,14 +234,12 @@
 
                                         <td class="product-quantity">
                                             <div class="quantity buttons_added">
-                                                <a href="cart.php?id={{ cart.item }}&action=sub" class="btn btn-primary"
-                                                   style="background-color: #1ABC9C">-</a>
+                                                <a href="cart.php?id={{ cart.item }}&action=sub" class="btn btn-primary check">-</a>
 
                                                 <input type="number" size="4" class="input-text qty text" title="Qty"
                                                        value="{{ cart.quantity }}" min="0" max="{{ cart.qty }}" readonly>
 
-                                                <a href="cart.php?id={{ cart.item }}&action=add" class="btn btn-primary"
-                                                   style="background-color: #1ABC9C">+</a>
+                                                <a href="cart.php?id={{ cart.item }}&action=add" class="btn btn-primary check">+</a>
 
                                             </div>
                                         </td>
@@ -261,7 +259,7 @@
                                             {#class="button">#}
                                         </div>
                                         <a  href="cart.php?id=-1&action=cc" class="btn btn-primary check">Clear Cart</a>
-                                        <a  href="" class="btn btn-primary check">Proceed to Checkout</a>
+                                        <a  href="checkout.php" class="btn btn-primary check">Proceed to Checkout</a>
                                     </td>
                                 </tr>
                                 </tbody>

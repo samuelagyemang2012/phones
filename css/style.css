@@ -1016,3 +1016,16 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
     border-color: black;
     background-color: black;
 }
+
+.err{
+    background-color: #000;
+    border-radius: 0px;
+    color: white;
+    border-color: #1abc9c;
+    text-align: center;
+}
+
+.err:hover{
+    border-color: black;
+    background-color: black;
+}
