@@ -16,6 +16,7 @@ class Encryption
         $iv = "eelectronics9010";
 
         $en = openssl_encrypt($data, $method, $pass, $options, $iv);
+
         return $en;
     }
 
@@ -27,6 +28,7 @@ class Encryption
         $iv = "eelectronics9010";
 
         $de = openssl_decrypt($data, $method, $pass, $options, $iv);
+
         return $de;
     }
 }

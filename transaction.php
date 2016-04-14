@@ -78,16 +78,19 @@ if (isset($_POST['billing_country'])) {
 
             header("Location: checkout.php");
         } else {
-
+//            echo $t_email;
             $_SESSION['email'] = $t_email;
             $_SESSION['address'] = $t_address;
             $new_phone = $phonecode . $t_phone;
 
             $enc_mail = $enc->encrypt($t_email);
 
-            $data = $i->getCustomerEmail($enc_email);
-
+//            echo $enc_mail;
+            $data = $i->getCustomerEmail($enc_mail);
+//
             $em = $data->fetch_array(MYSQLI_ASSOC);
+
+//            echo $em['email'];
 
             /// new customer
             if (is_null($em['email'])) {
@@ -122,7 +125,7 @@ if (isset($_POST['billing_country'])) {
 
                 $i->makeCustomer($ef, $el, $enc_mail, $ea, $ec, $eco, $enp, $file);
 
-                $row1 = $i->getCustomerDetails($ee);
+                $row1 = $i->getCustomerDetails($enc_mail);
                 $ss1 = $row1->fetch_array(MYSQLI_ASSOC);
                 $cid = $ss1['cust_id'];
 
@@ -130,44 +133,45 @@ if (isset($_POST['billing_country'])) {
                 // $mail->sendAlertMail($t_firstname, $t_lastname, $t_email);
                 header("Location: order.php");
 
-            }
+            } elseif (!is_null($em['email']) && strcmp($em['email'], $enc_mail) === 0) {
 
-            if (!is_null($em['email']) && strcmp($em['email'], $enc_email) === 0) {
-                    $file1 = "./customer_history/" . "$t_email" . ".txt";
+//                echo "existsss ccc";
+                $file1 = "./customer_history/" . "$t_email" . ".txt";
 
-                    $ef = $enc->encrypt($t_firstname);
-                    $el = $enc->encrypt($t_lastname);
+                $ef = $enc->encrypt($t_firstname);
+                $el = $enc->encrypt($t_lastname);
 //                    $ee = $enc->encrypt($t_email);
-                    $ea = $enc->encrypt($t_address);
-                    $ec = $enc->encrypt($t_city);
-                    $eco = $enc->encrypt($country);
-                    $enp = $enc->encrypt($new_phone);
+                $ea = $enc->encrypt($t_address);
+                $ec = $enc->encrypt($t_city);
+                $eco = $enc->encrypt($country);
+                $enp = $enc->encrypt($new_phone);
 
-                    foreach ($_SESSION['cart'] as $p_id => $details) {
-                        $id = $_SESSION['cart'][$p_id]['item'];
-                        $cart_qty = $_SESSION['cart'][$p_id]['quantity'];
-                        $row = $i->getItemDetails($id);
-                        $d = $row->fetch_array(MYSQLI_ASSOC);
-                        $new_qty = $d['qty'] - $cart_qty;
-                        $new_num_bought = $d['num_bought'] + $cart_qty;
+                foreach ($_SESSION['cart'] as $p_id => $details) {
+                    $id = $_SESSION['cart'][$p_id]['item'];
+                    $cart_qty = $_SESSION['cart'][$p_id]['quantity'];
+                    $row = $i->getItemDetails($id);
+                    $d = $row->fetch_array(MYSQLI_ASSOC);
+                    $new_qty = $d['qty'] - $cart_qty;
+                    $new_num_bought = $d['num_bought'] + $cart_qty;
 
-                        $info1 = $_SESSION['cart'][$p_id]['item'] . "\n";
+                    $info1 = $_SESSION['cart'][$p_id]['item'] . "\n";
 
-                        file_put_contents($file, $info1, FILE_APPEND);
+                    file_put_contents($file, $info1, FILE_APPEND);
 
-                        $i->updateCustomer($ef, $el, $enc_mail, $ea, $ec, $eco, $enp);
-                        $i->updateItem($id, $new_qty, $new_num_bought);
-                        $i->report($id, $cart_qty);
-                    }
-
-                    $row1 = $i->getCustomerDetails($enc_mail);
-                    $ss1 = $row1->fetch_array(MYSQLI_ASSOC);
-                    $cid = $ss1['cust_id'];
-
-                    $i->makeOrder($cid);
-                    //$mail->sendAlertMail($t_firstname, $t_lastname, $t_email)
-                    header('Location: order.php');
+                    $i->updateCustomer($ef, $el, $enc_mail, $ea, $ec, $eco, $enp);
+                    $i->updateItem($id, $new_qty, $new_num_bought);
+                    $i->report($id, $cart_qty);
                 }
+
+                $row1 = $i->getCustomerDetails($enc_mail);
+                $ss1 = $row1->fetch_array(MYSQLI_ASSOC);
+                $cid = $ss1['cust_id'];
+
+                $i->makeOrder($cid);
+                //$mail->sendAlertMail($t_firstname, $t_lastname, $t_email)
+                header('Location: order.php');
             }
         }
     }
+}
+
