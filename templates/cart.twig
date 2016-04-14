@@ -89,7 +89,8 @@
 
             <div class="col-sm-6">
                 <div class="shopping-item">
-                    <a href="cart.php">Cart - <span class="cart-amunt">${{ total }}</span> <i class="fa fa-shopping-cart"></i>
+                    <a href="cart.php">Cart - <span class="cart-amunt">${{ total }}</span> <i
+                                class="fa fa-shopping-cart"></i>
                         <span class="product-count">{{ count }}</span></a>
                 </div>
             </div>
@@ -144,8 +145,8 @@
             <div class="col-md-4">
                 <div class="single-sidebar">
                     <h2 class="sidebar-title">Search Products</h2>
-                    <form action="#">
-                        <input type="text" placeholder="Search products...">
+                    <form action="search.php" method="get">
+                        <input type="text" placeholder="Search products..." name="search" required>
                         <input type="submit" value="Search">
                     </form>
                 </div>
@@ -183,13 +184,11 @@
                 </div>
 
                 <div class="single-sidebar">
-                    <h2 class="sidebar-title">Recent Posts</h2>
+                    <h2 class="sidebar-title">Brands</h2>
                     <ul>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
+                        {%  for b in brands %}
+                        <li><a href="brands.php?brand={{ b.brand_name }}">{{ b.brand_name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -198,72 +197,74 @@
                 <div class="product-content-right">
                     <div class="woocommerce">
                         {#<form method="post" action="#">#}
-                            <table cellspacing="0" class="shop_table cart">
-                                <thead>
-                                <tr>
-                                    <th class="product-remove">&nbsp;</th>
-                                    <th class="product-thumbnail">&nbsp;</th>
-                                    <th class="product-name">Product</th>
-                                    <th class="product-price">Price</th>
-                                    <th class="product-quantity">Quantity</th>
-                                    <th class="product-subtotal">Total</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for cart in carts %}
-                                    <tr class="cart_item">
-                                        <td class="product-remove">
-                                            <a title="Remove this item" class="remove"
-                                               href="cart.php?id={{ cart.item }}&action=del">×</a>
-                                        </td>
+                        <table cellspacing="0" class="shop_table cart">
+                            <thead>
+                            <tr>
+                                <th class="product-remove">&nbsp;</th>
+                                <th class="product-thumbnail">&nbsp;</th>
+                                <th class="product-name">Product</th>
+                                <th class="product-price">Price</th>
+                                <th class="product-quantity">Quantity</th>
+                                <th class="product-subtotal">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for cart in carts %}
+                                <tr class="cart_item">
+                                    <td class="product-remove">
+                                        <a title="Remove this item" class="remove"
+                                           href="cart.php?id={{ cart.item }}&action=del">×</a>
+                                    </td>
 
-                                        <td class="product-thumbnail">
-                                            <a href="single-product.twig"><img width="145" height="145"
-                                                                               alt="poster_1_up"
-                                                                               class="shop_thumbnail"
-                                                                               src="./img/{{ cart.pic }}"></a>
-                                        </td>
+                                    <td class="product-thumbnail">
+                                        <a href="single-product.twig"><img width="145" height="145"
+                                                                           alt="poster_1_up"
+                                                                           class="shop_thumbnail"
+                                                                           src="./img/{{ cart.pic }}"></a>
+                                    </td>
 
-                                        <td class="product-name">
-                                            <a href="single.php?id={{ cart.item }}"> {{ cart.phone_name }} </a>
-                                        </td>
+                                    <td class="product-name">
+                                        <a href="single.php?id={{ cart.item }}"> {{ cart.phone_name }} </a>
+                                    </td>
 
-                                        <td class="product-price">
-                                            <span class="amount">${{ cart.price }}</span>
-                                        </td>
+                                    <td class="product-price">
+                                        <span class="amount">${{ cart.price }}</span>
+                                    </td>
 
-                                        <td class="product-quantity">
-                                            <div class="quantity buttons_added">
-                                                <a href="cart.php?id={{ cart.item }}&action=sub" class="btn btn-primary check">-</a>
+                                    <td class="product-quantity">
+                                        <div class="quantity buttons_added">
+                                            <a href="cart.php?id={{ cart.item }}&action=sub"
+                                               class="btn btn-primary check">-</a>
 
-                                                <input type="number" size="4" class="input-text qty text" title="Qty"
-                                                       value="{{ cart.quantity }}" min="0" max="{{ cart.qty }}" readonly>
+                                            <input type="number" size="4" class="input-text qty text" title="Qty"
+                                                   value="{{ cart.quantity }}" min="0" max="{{ cart.qty }}" readonly>
 
-                                                <a href="cart.php?id={{ cart.item }}&action=add" class="btn btn-primary check">+</a>
+                                            <a href="cart.php?id={{ cart.item }}&action=add"
+                                               class="btn btn-primary check">+</a>
 
-                                            </div>
-                                        </td>
-
-                                        <td class="product-subtotal">
-                                            <span class="amount">${{ cart.total }}</span>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                <tr>
-                                    <td class="actions" colspan="6">
-                                        <div class="coupon">
-                                            {#<label for="coupon_code">Coupon:</label>#}
-                                            {#<input type="text" placeholder="Coupon code" value="" id="coupon_code"#}
-                                            {#class="input-text" name="coupon_code">#}
-                                            {#<input type="submit" value="Apply Coupon" name="apply_coupon"#}
-                                            {#class="button">#}
                                         </div>
-                                        <a  href="cart.php?id=-1&action=cc" class="btn btn-primary check">Clear Cart</a>
-                                        <a  href="checkout.php" class="btn btn-primary check">Proceed to Checkout</a>
+                                    </td>
+
+                                    <td class="product-subtotal">
+                                        <span class="amount">${{ cart.total }}</span>
                                     </td>
                                 </tr>
-                                </tbody>
-                            </table>
+                            {% endfor %}
+                            <tr>
+                                <td class="actions" colspan="6">
+                                    <div class="coupon">
+                                        {#<label for="coupon_code">Coupon:</label>#}
+                                        {#<input type="text" placeholder="Coupon code" value="" id="coupon_code"#}
+                                        {#class="input-text" name="coupon_code">#}
+                                        {#<input type="submit" value="Apply Coupon" name="apply_coupon"#}
+                                        {#class="button">#}
+                                    </div>
+                                    <a href="cart.php?id=-1&action=cc" class="btn btn-primary check">Clear Cart</a>
+                                    <a href="checkout.php" class="btn btn-primary check">Proceed to Checkout</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                         {#</form>#}
 
                         <div class="cart-collaterals">
@@ -575,7 +576,6 @@
 
                                 </section>
                             </form>
-
 
                         </div>
                     </div>

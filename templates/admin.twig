@@ -1,0 +1,300 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+    {% block intro %}
+        <title>Easy Admin Panel an Admin Panel Category Flat Bootstrap Responsive Website Template | Tables ::
+            w3layouts</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="keywords" content="Easy Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+        <script type="application/x-javascript"> addEventListener("load", function () {
+                setTimeout(hideURLbar, 0);
+            }, false);
+            function hideURLbar() {
+                window.scrollTo(0, 1);
+            } </script>
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css'/>
+        <!-- Custom CSS -->
+        <link href="css/style.css" rel='stylesheet' type='text/css'/>
+        <!-- Graph CSS -->
+        <link href="css/font-awesome.css" rel="stylesheet">
+        <!-- jQuery -->
+        <!-- lined-icons -->
+        <link rel="stylesheet" href="css/icon-font.min.css" type='text/css'/>
+        <!-- //lined-icons -->
+        <!-- chart -->
+        <script src="js/Chart.js"></script>
+        <!-- //chart -->
+        <!--animate-->
+        <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+        <script src="js/wow.min.js"></script>
+        <script>
+            new WOW().init();
+        </script>
+        <!--//end-animate-->
+        <!----webfonts--->
+        <link href='//fonts.googleapis.com/css?family=Cabin:400,400italic,500,500italic,600,600italic,700,700italic'
+              rel='stylesheet' type='text/css'>
+        <!---//webfonts--->
+
+        <!-- my css -->
+        <link href="css/modified.css" rel="stylesheet" type="text/css" media="all">
+        <!--//my css-->
+
+        <!-- Meters graphs -->
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <!-- Placed js at the end of the document so the pages load faster -->
+    {% endblock %}
+
+</head>
+
+
+<body class="sticky-header left-side-collapsed" onload="initMap()">
+
+
+<!-- main content start-->
+{% block content %}
+    <div class="main-content main-content4">
+
+        <!-- bottom pagination start -->
+        <center>
+            <div class='panel-footer'>
+                {% if totalPages > 0 %}
+                    <ul class='pagination pagination-sm' id="pagination">
+                        {% for i in 1..totalPages %}
+
+                            {% if loop.first %}
+                                {% if page == 1 %}
+                                    <li class="prev disabled">
+                                        <a>
+                                            <i class="fa fa-angle-double-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="prev disabled">
+                                        <a>
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="prev">
+                                        <a href='admin.php?page={{ 1 }}'>
+                                            <i class="fa fa-angle-double-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="prev">
+                                        <a href='admin.php?page={{ page - 1 }}'>
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+
+
+                            {% if loop.last %}
+                                {% if page == totalPages %}
+                                    <li class="next disabled">
+                                        <a>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                    <li class="next disabled">
+                                        <a>
+                                            <i class="fa fa-angle-double-right"></i>
+                                        </a>
+                                    </li>
+                                {% else %}
+
+                                    <li class="next">
+                                        <a href='admin.php?page={{ page + 1 }}'>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                    <li class="next">
+                                        <a href='admin.php?page={{ totalPages }}'>
+                                            <i class="fa fa-angle-double-right"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+            </div>
+            Page <a>{{ page }}</a> out of <a>{{ totalPages }}</a>
+        </center>
+        <!-- end bottom pagination start -->
+
+
+        <!-- table body beginning -->
+        <div id="page-wrapper">
+            <div class="graphs">
+                <div class="col-sm-12">
+                    <div class="xs tabls">
+                        <div class="bs-example4" data-example-id="contextual-table">
+                            <center><h2>Administrator</h2></center>
+                            <a href="customer.php" class="btn btn-primary">View Orders </a>
+                            <a href="report.php" class="btn btn-primary">View Report</a>
+
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Wine Name</th>
+                                    <th>Quantity</th>
+                                    <th></th>
+                                    {#<th>Year</th>#}
+                                    <th>Price</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for p in phones %}
+                                    <tr class="active">
+                                        <form action="update.php" method="post">
+                                            <td>
+                                                <input type="text" value="{{ p.item_id }}" style="width: 40px"
+                                                       name="id" readonly>
+                                            </td>
+
+                                            <td><input type="text" value="{{ p.item_name }}"
+                                                       style="width: 200px; text-align: center" min="0" name="name">
+                                            </td>
+                                            <td><input type="number" value="{{ p.qty }}"
+                                                       style="width: 40px; text-align: center" min="0" name="qty"
+                                                       required></td>
+                                            <td>
+                                                {#<select name="brand">#}
+                                                    {#<option value="1" selected="Apple">Apple</option>#}
+                                                    {#<option value="2" selected="selected">Nokia</option>#}
+                                                    {#<option value="3" selected="selected">Sony</option>#}
+                                                    {#<option value="4" selected="selected">LG</option>#}
+                                                    {#<option value="5" selected="selected">Samsung</option>#}
+                                                    {#<option value="6" selected="selected">Techno</option>#}
+                                                {#</select>#}
+                                            </td>
+                                            {#<td>{{ wine.year }}</td>#}
+                                            <td>$<input type="number" value="{{ p.price }}"
+                                                        style="width: 80px; text-align: center" min="0" name="price"
+                                                        required>
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn btn_1"
+                                                        style="background-color: #00aaf1; color: #fff">Update
+                                                </button>
+                                                {#<button class="btn btn_1" style="background-color: #00aaf1">Edit</button>#}
+                                            </td>
+                                        </form>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            {#Cart#}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- end table body -->
+
+        <!-- bottom pagination start -->
+        <center>
+            <div class='panel-footer'>
+                {% if totalPages > 0 %}
+                    <ul class='pagination pagination-sm' id="pagination">
+                        {% for i in 1..totalPages %}
+
+                            {% if loop.first %}
+                                {% if page == 1 %}
+                                    <li class="prev disabled">
+                                        <a>
+                                            <i class="fa fa-angle-double-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="prev disabled">
+                                        <a>
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="prev">
+                                        <a href='admin.php?page={{ 1 }}'>
+                                            <i class="fa fa-angle-double-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="prev">
+                                        <a href='admin.php?page={{ page - 1 }}'>
+                                            <i class="fa fa-angle-left"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+
+
+                            {% if loop.last %}
+                                {% if page == totalPages %}
+                                    <li class="next disabled">
+                                        <a>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                    <li class="next disabled">
+                                        <a>
+                                            <i class="fa fa-angle-double-right"></i>
+                                        </a>
+                                    </li>
+                                {% else %}
+
+                                    <li class="next">
+                                        <a href='admin.php?page={{ page + 1 }}'>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                    <li class="next">
+                                        <a href='admin.php?page={{ totalPages }}'>
+                                            <i class="fa fa-angle-double-right"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {#<div class='pull-right' id="paginationResult">#}
+
+            </div>
+            Page <a>{{ page }}</a> out of <a>{{ totalPages }}</a>
+            {#</div>#}
+
+        </center>
+        <!-- end bottom pagination start -->
+    </div>
+    <!-- end main content start-->
+{% endblock %}
+
+{% block footer %}
+    <script src="js/jquery.nicescroll.js"></script>
+    <script src="js/scripts.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+{% endblock %}
+
+</body>
+</html>

@@ -14,6 +14,10 @@ $item = new Item();
 $pn_id = null;
 $total = 0;
 $count = 0;
+
+$data = $item->getBrands();
+$brands = $data->fetch_all(MYSQLI_ASSOC);
+$b['brands'] = $brands;
 //
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -66,5 +70,6 @@ echo $twig->render('single-product.twig', [
     'phone_qty' => $pn_details['qty'],
     'phone_pic' => $pn_details['pic'],
     'count' => $count,
-    'total' => $total
+    'total' => $total,
+    'brands' => $brands
 ]);

@@ -40,9 +40,9 @@ $allPhones['phones'] = $as;
 
 if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
 
-    foreach ($_SESSION['cart'] as $skirt_id => $details) {
+    foreach ($_SESSION['cart'] as $p_id => $details) {
         $count++;
-        $total += $_SESSION['cart'][$skirt_id]['total'];
+        $total += $_SESSION['cart'][$p_id]['total'];
     }
 } else {
     $count = 0;

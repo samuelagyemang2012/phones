@@ -34,18 +34,15 @@ class Item extends Adb
         return $this->query($query);
     }
 
-    public function getItemBrands($brand, $sf, $np)
+    public function getItemBrands($brand)
     {
-        $query = "SELECT * FROM items s INNER JOIN brand b WHERE s.brand_id = b.brand_id AND b.brand_name=? LIMIT $sf,$np";
+        $query = "SELECT * FROM items s INNER JOIN brand b WHERE s.brand_id = b.brand_id AND b.brand_name=?";
         $s = $this->prepare($query);
         $s->bind_param('s', $brand);
         $s->execute();
         return $s->get_result();
     }
 
-    /**
-     * @return int
-     */
     public function countItems()
     {
         $query = "SELECT * FROM items s INNER JOIN brand b WHERE s.brand_id = b.brand_id";
@@ -79,11 +76,19 @@ class Item extends Adb
         $s->execute();
     }
 
-    public function makeCustomer($f, $m, $l, $em, $a, $c, $p, $ib)
+    public function updateCustomer($f, $l, $em, $a, $ci, $c, $p)
     {
-        $query = "INSERT INTO customer(firstname, middlename, lastname, email, address, country, phone,items_bought) VALUES (?,?,?,?,?,?,?,?)";
+        $query = "UPDATE `customer` SET firstname=?,lastname=?,email=?,address=?,city=?,country=?,phone=? WHERE email =?";
         $s = $this->prepare($query);
-        $s->bind_param('ssssssss', $f, $m, $l, $em, $a, $c, $p, $ib);
+        $s->bind_param('ssssssss', $f, $l, $em, $a, $ci, $c, $p, $em);
+        $s->execute();
+    }
+
+    public function makeCustomer($f, $l, $em, $a, $ci, $c, $p, $ib)
+    {
+        $query = "INSERT INTO customer(firstname,lastname, email, address, city, country, phone,items_bought) VALUES (?,?,?,?,?,?,?,?)";
+        $s = $this->prepare($query);
+        $s->bind_param('ssssssss', $f, $l, $em, $a, $ci, $c, $p, $ib);
         $s->execute();
     }
 
@@ -128,13 +133,36 @@ class Item extends Adb
         return $this->query($query);
     }
 
-    public function search($price)
+    public function search($name)
     {
-        $query = "SELECT * FROM items s INNER JOIN brand b WHERE s.brand_id = b.brand_id AND s.price <= ? ORDER BY s.price DESC ";
+        $new_name = '%' . $name . '%';
+        $query = "SELECT * FROM items s INNER JOIN brand b WHERE s.brand_id = b.brand_id AND s.item_name LIKE ?";
         $s = $this->prepare($query);
-        $s->bind_param('i', $price);
+        $s->bind_param('s', $new_name);
         $s->execute();
         return $s->get_result();
     }
 
+    public function allCountries()
+    {
+        $query = "SELECT * FROM countries_ph";
+        return $this->query($query);
+    }
+
+    public function getPhoneCode($iso)
+    {
+        $query = "SELECT phonecode FROM countries_ph WHERE iso3 = ?";
+        $s = $this->prepare($query);
+        $s->bind_param('s', $iso);
+        $s->execute();
+        return $s->get_result();
+    }
+
+    public function report($id,$num)
+    {
+        $query = "INSERT INTO item_bought(item_id, num_bought) VALUES (?,?)";
+        $s = $this->prepare($query);
+        $s->bind_param('ii', $id,$num);
+        $s->execute();
+    }
 }
