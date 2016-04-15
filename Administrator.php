@@ -41,7 +41,6 @@ class Administrator extends Adb
         return $s->get_result();
     }
 
-
     public function confirmOrder($id)
     {
         $query = "UPDATE orders SET confirmed = 1 WHERE order_id=?";
@@ -73,7 +72,13 @@ class Administrator extends Adb
         return $s->get_result();
     }
 
-    public function generateReport(){
-
+    public function generateReport($date)
+    {
+        $new_date = '%' . $date . '%';
+        $query = "SELECT s.item_id,s.item_name,sum(i.num_bought), i.time FROM item_bought i INNER JOIN items s on i.item_id= s.item_id WHERE i.time LIKE ? GROUP BY s.item_name ORDER BY time asc";
+        $s = $this->prepare($query);
+        $s->bind_param('s', $new_date);
+        $s->execute();
+        return $s->get_result();
     }
 }
