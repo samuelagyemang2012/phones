@@ -130,7 +130,7 @@ if (isset($_POST['billing_country'])) {
                 $cid = $ss1['cust_id'];
 
                 $i->makeOrder($cid);
-                // $mail->sendAlertMail($t_firstname, $t_lastname, $t_email);
+                 $mail->sendAlertMail($t_firstname, $t_lastname, $t_email);
                 header("Location: order.php");
 
             } elseif (!is_null($em['email']) && strcmp($em['email'], $enc_mail) === 0) {
@@ -168,7 +168,7 @@ if (isset($_POST['billing_country'])) {
                 $cid = $ss1['cust_id'];
 
                 $i->makeOrder($cid);
-                //$mail->sendAlertMail($t_firstname, $t_lastname, $t_email)
+                $mail->sendAlertMail($t_firstname, $t_lastname, $t_email);
                 header('Location: order.php');
             }
         }

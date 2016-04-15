@@ -27,9 +27,7 @@ if (isset($_GET['id'])) {
     $ne = $en->decrypt($e);
     $nd = $en->decrypt($d);
 
-//    echo $f;
-
-//    $mail->sendConfirmMail($nf, $nl, $ne, $nd);
+    $mail->sendConfirmMail($nf, $nl, $ne, $nd);
 
     header('Location: customer.php');
 
