@@ -7,6 +7,7 @@
  * Time: 12:31 AM
  */
 require_once './PHPMailer-master/PHPMailerAutoload.php';
+include_once 'logs.php';
 
 
 class Mail
@@ -21,13 +22,14 @@ class Mail
 
         $mail->isSMTP();
         $mail->Host = 'smtp.office365.com';
+
         $mail->SMTPAuth = true;
-        $mail->Username = 'eelectronics9010@outlook.com';
-        $mail->Password = 'XDC123as';
+        $mail->Username = 'samuel.agyeman@ashesi.edu.gh';
+        $mail->Password = 'blender10';
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
-        $mail->setFrom('eelectronics9010@outlook.com', 'eElectronics');
+        $mail->setFrom('samuel.agyeman@ashesi.edu.gh', 'eElectronics');
         $mail->addAddress($email, $cust);
 
         $mail->isHTML(true);
@@ -38,18 +40,21 @@ class Mail
 
 //        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-//        $mail->SMTPOptions = array(
-//            'ssl' => array(
-//                'verify_peer' => false,
-//                'verify_peer_name' => false,
-//                'allow_self_signed' => true
-//            )
-//        );
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
 
         if (!$mail->send()) {
+            return false;
+            trigger_error("Error sending mail.");
             echo 'Message could not be sent.';
             echo 'Mailer Error: ' . $mail->ErrorInfo;
         } else {
+            return true;
             echo 'Message has been sent';
         }
     }
@@ -60,24 +65,25 @@ class Mail
 
         $mail = new PHPMailer;
 
-//        $mail->SMTPDebug = 3;
 
         $mail->isSMTP();
         $mail->Host = 'smtp.office365.com';
+//        $mail->Host = 'smtp.outlook.com';
+
         $mail->SMTPAuth = true;
-        $mail->Username = 'eelectronics9010@outlook.com';
-        $mail->Password = 'XDC123as';
+        $mail->Username = 'samuel.agyeman@ashesi.edu.gh';
+        $mail->Password = 'blender10';
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
-        $mail->setFrom('eelectronics9010@outlook.com', 'eElectronics');
+        $mail->setFrom('samuel.agyeman@ashesi.edu.gh', 'eElectronics');
         $mail->addAddress($email, $cust);
 
         $mail->isHTML(true);
 
         $mail->Subject = 'Your Order Has Being Processed';
-        $mail->Body = '<p>Hi ' . $cust . ',</p>'.
-         '<p>Your order has been processed and been shipped.</p>
+        $mail->Body = '<p>Hi ' . $cust . ',</p>' .
+            '<p>Your order has been processed and been shipped.</p>
          <p>Your should recieve your order within the next 48 hrs.</p>
          <p>Thank you for shopping with us.</p>
          <br>
@@ -85,18 +91,21 @@ class Mail
 
 //        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-//        $mail->SMTPOptions = array(
-//            'ssl' => array(
-//                'verify_peer' => false,
-//                'verify_peer_name' => false,
-//                'allow_self_signed' => true
-//            )
-//        );
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
 
         if (!$mail->send()) {
+            return false;
+            trigger_error("Error sending mail.");
             echo 'Message could not be sent.';
             echo 'Mailer Error: ' . $mail->ErrorInfo;
         } else {
+            return true;
             echo 'Message has been sent';
         }
     }

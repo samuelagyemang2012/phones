@@ -1,0 +1,5 @@
+Error: [2] mysqli::__construct(): (HY000/1049): Unknown database 'phoones' 
+Error: [1024] Database phoones does not exist. 
+Error: [2] mysqli::query(): Couldn't fetch Item 
+Error: [2] mysqli::query(): Couldn't fetch Item 
+Error: [2] mysqli_num_rows() expects parameter 1 to be mysqli_result, null given 

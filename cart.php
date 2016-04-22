@@ -16,8 +16,10 @@ $count = 0;
 $item = new Item();
 
 $data = $item->getBrands();
-$brands = $data->fetch_all(MYSQLI_ASSOC);
-$b['brands'] = $brands;
+//$brands = $data->fetch_all(MYSQLI_ASSOC);
+
+//$b['brands'] = $brands;
+array('brands'=>$data);
 
 if (isset($_GET['id']) && isset($_GET['action'])) {
     if (isset($_GET['action'])) {
@@ -93,5 +95,5 @@ echo $twig->render('cart.twig', [
     'carts' => isset($_SESSION['cart']) ? $_SESSION['cart'] : '',
     'total' => $total,
     'count' => $count,
-    'brands'=> $brands
+    'brands'=> $data
 ]);

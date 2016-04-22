@@ -21,9 +21,10 @@ if (isset($_REQUEST['search'])) {
     $name = $_REQUEST['search'];
     $phones = $item->search($name);
 
-    $as = $phones->fetch_all(MYSQLI_ASSOC);
-
-    $allPhones['phones'] = $as;
+//    $as = $phones->fetch_all(MYSQLI_ASSOC);
+//
+//    $allPhones['phones'] = $as;
+    array('phones' => $phones);
 
     if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
 
@@ -37,7 +38,7 @@ if (isset($_REQUEST['search'])) {
     }
 
     echo $twig->render('search.twig', [
-        'phones' => $as,
+        'phones' => $phones,
         'count' => $count,
         'name' => $name,
         'total' => $total

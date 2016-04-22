@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="5daffd8f-8715-46a9-9efd-ad0247ef292f" name="phones" url="http://166.62.103.147">
+        <fileTransfer host="166.62.103.147" port="21" rootFolder="/phones" password="dfcedfd0dfc2dfc3df9bdf9adf98df92dfc8dfc9dfd9dfcb" username="agyemang_samuel@cs.ashesi.edu.gh">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

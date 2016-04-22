@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: samuel
- * Date: 3/19/2016
- * Time: 1:25 AM
- */
-
 include_once 'Item.php';
-//include_once 'Admin.php';
+include_once 'logs.php';
 include_once 'render_config.php';
 
 session_start();
@@ -27,16 +20,15 @@ if (isset($_REQUEST['phone'])) {
 $sf_phone = ($phone - 1) * $num_per_page_phone;
 
 $phones = $item->allItems($sf_phone, $num_per_page_phone);
-//
+
 $total_num_rows_phones = $item->countItems();
 
 $total_phones = $total_num_rows_phones['item_id'];
 
 $total_pages_phone = ceil($total_num_rows_phones / $num_per_page_phone);
 
-$as = $phones->fetch_all(MYSQLI_ASSOC);
-
-$allPhones['phones'] = $as;
+//$as = $phones->fetch_all(MYSQLI_ASSOC);
+array('phones' => $phones);
 
 if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
 
@@ -50,7 +42,7 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
 }
 //
 echo $twig->render('index.twig', [
-    'phones' => $as,
+    'phones' => $phones,
     'phone' => $phone,
     'total_pages_phone' => $total_pages_phone,
     'count' => $count,

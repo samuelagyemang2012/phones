@@ -81,4 +81,13 @@ class Administrator extends Adb
         $s->execute();
         return $s->get_result();
     }
+
+    public function login($username, $password)
+    {
+        $query = "SELECT admin_name,admin_pass FROM admin WHERE admin_name=? AND admin_pass=?";
+        $s = $this->prepare($query);
+        $s->bind_param('ss', $username, $password);
+        $s->execute();
+        return $s->get_result();
+    }
 }

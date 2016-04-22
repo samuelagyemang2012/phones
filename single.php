@@ -16,15 +16,19 @@ $total = 0;
 $count = 0;
 
 $data = $item->getBrands();
-$brands = $data->fetch_all(MYSQLI_ASSOC);
-$b['brands'] = $brands;
+//$brands = $data->fetch_all(MYSQLI_ASSOC);
+//$b['brands'] = $brands;
 //
+array('phones' => $data);
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 //
+//    echo 'ID is '.$id;
+
     $phone = $item->getItemDetails($id);
     $pn_details = $phone->fetch_array(MYSQLI_ASSOC);
-//
+//    array('phone_details' => $phone);
 //
     if (isset($_GET['action'])) {
         $pn_id = $_GET['id'];
@@ -64,6 +68,7 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
 
 echo $twig->render('single-product.twig', [
     'phone_name' => $pn_details['item_name'],
+//    'phone_details'=>$phone,
     'phone_id' => $pn_details['item_id'],
     'phone_brand_name' => $pn_details['brand_name'],
     'phone_price' => $pn_details['price'],
@@ -71,5 +76,5 @@ echo $twig->render('single-product.twig', [
     'phone_pic' => $pn_details['pic'],
     'count' => $count,
     'total' => $total,
-    'brands' => $brands
+    'brands' => $data
 ]);

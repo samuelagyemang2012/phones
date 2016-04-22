@@ -38,6 +38,7 @@ $pdf->Ln(5);
 
 $data = $a->generateReport($date);
 $row = $data->fetch_array(MYSQLI_ASSOC);
+//echo $row['item_name'];
 $len = mysqli_num_rows($data);
 
 for ($i = 0; $i < $len; $i++) {

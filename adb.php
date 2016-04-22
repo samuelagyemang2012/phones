@@ -1,12 +1,4 @@
 <?php
-
-/**
- * Created by PhpStorm.
- * User: samuel
- * Date: 2/4/2016
- * Time: 7:35 PM
- */
-
 include_once 'db_config.php';
 
 class Adb extends mysqli
@@ -20,7 +12,9 @@ class Adb extends mysqli
 
         if (mysqli_connect_error()){
 
+            trigger_error("Database ".DB_NAME." does not exist.");
             header('Location: dberror.php');
+//            echo"error.";
 
         }
     }

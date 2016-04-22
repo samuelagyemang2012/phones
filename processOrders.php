@@ -12,8 +12,6 @@ if (isset($_GET['id'])) {
 
     $id = $_GET['id'];
 
-    $admin->confirmOrder($id);
-
     $row = $admin->getCustomerDetails($id);
     $data = $row->fetch_array(MYSQLI_ASSOC);
 
@@ -27,8 +25,16 @@ if (isset($_GET['id'])) {
     $ne = $en->decrypt($e);
     $nd = $en->decrypt($d);
 
-    $mail->sendConfirmMail($nf, $nl, $ne, $nd);
+    $ack = $mail->sendConfirmMail($nf, $nl, $ne, $nd);
 
-    header('Location: customer.php');
+    if ($ack === true) {
+        $admin->confirmOrder($id);
 
+        header('Location: customer.php');
+    } else {
+        trigger_error("Error sending mail.");
+
+        echo '<script>alert("Mail could not be sent.")</script>';
+        header('Location: customer.php');
+    }
 }

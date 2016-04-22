@@ -21,9 +21,10 @@ if (isset($_REQUEST['brand'])) {
     $brand = $_REQUEST['brand'];
     $phones = $item->getItemBrands($brand);
 
-    $as = $phones->fetch_all(MYSQLI_ASSOC);
+//    $as = $phones->fetch_all(MYSQLI_ASSOC);
 
-    $allPhones['phones'] = $as;
+//    $allPhones['phones'] = $as;
+    array('phones' => $phones);
 
     if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
 
@@ -37,7 +38,7 @@ if (isset($_REQUEST['brand'])) {
     }
 
     echo $twig->render('brands.twig', [
-        'phones' => $as,
+        'phones' => $phones,
         'count' => $count,
         'name' => $brand,
         'total' => $total

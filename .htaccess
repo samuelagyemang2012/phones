@@ -1,1 +1,8 @@
+AuthType Basic
+AuthName "My Protected Area"
+AuthUserFile \xampp\.htpasswd
+Require valid-user
+
 ErrorDocument 404 /phones/templates/404.html
+
+#ErrorDocument 404 /~ashesics/class2016/agyemang_samuel/phones/templates/404.html

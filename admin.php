@@ -38,17 +38,18 @@ $total_phones = $totalNumRows['item_id'];
 
 $total_pages = ceil($totalNumRows / $numPerPage);
 
-$ar = $all->fetch_all(MYSQLI_ASSOC);
-$ab = $allbrands->fetch_all(MYSQLI_ASSOC);
+//$ar = $all->fetch_all(MYSQLI_ASSOC);
+//$ab = $allbrands->fetch_all(MYSQLI_ASSOC);
+array('phones' => $all);
+array('phones' => $allbrands);
 
-
-$allData['phones'] = $ar;
-$allB['brands'] = $ab;
+//$allData['phones'] = $ar;
+//$allB['brands'] = $ab;
 
 /** @var array $data */
 echo $twig->render('admin.twig', [
-    'phones' => $ar,
-    'brands' => $ab,
+    'phones' => $all,
+    'brands' => $allbrands,
     'total_clothes' => $total_phones,
     'page' => $page,
     'totalPages' => $total_pages

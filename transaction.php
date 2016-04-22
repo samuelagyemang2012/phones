@@ -8,6 +8,7 @@
 
 include_once 'Item.php';
 include_once 'Mail.php';
+include_once 'logs.php';
 include_once 'Encryption.php';
 include_once 'render_config.php';
 
@@ -56,6 +57,7 @@ if (isset($_POST['billing_country'])) {
     $t_phone = strip_tags($s_phone);
 
     if (strlen($t_firstname) === 0 || strlen($t_lastname) === 0 || strlen($t_address) === 0 || strlen($t_city) === 0 || strlen($t_email) === 0 || strlen($phonecode) === 0 || strlen($t_phone) === 0) {
+        trigger_error("Null string not accepted.");
         header("Location: checkout.php");
     } else {
 
@@ -75,7 +77,7 @@ if (isset($_POST['billing_country'])) {
 
 
         if ($fn_bool === 0 || $ln_bool === 0 || $ad_bool === 0 || $c_bool === 0 || $e_bool === 0 || $p_bool === 0) {
-
+            trigger_error("Invalid data entered.");
             header("Location: checkout.php");
         } else {
 //            echo $t_email;
@@ -147,6 +149,7 @@ if (isset($_POST['billing_country'])) {
                 $enp = $enc->encrypt($new_phone);
 
                 foreach ($_SESSION['cart'] as $p_id => $details) {
+
                     $id = $_SESSION['cart'][$p_id]['item'];
                     $cart_qty = $_SESSION['cart'][$p_id]['quantity'];
                     $row = $i->getItemDetails($id);
