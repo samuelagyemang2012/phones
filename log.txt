@@ -7,3 +7,6 @@ Error: [2] mysqli_connect(): (HY000/1049): Unknown database 'phoones'
 Error: [1024] Database phones does not exist. 
 Error: [2] mysqli_connect(): (HY000/1049): Unknown database 'phoones' 
 Error: [1024] Database phones does not exist. 
+Error: [8] Undefined index: billing_company 
+Error: [8] Undefined variable: file 
+Error: [2] file_put_contents(): Filename cannot be empty 
